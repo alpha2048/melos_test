@@ -1,3 +1,10 @@
 name: melos_test
 packages:
   - packages/**
+
+scripts:
+  build_runner:
+    exec: flutter pub run build_runner build
+    select-package:
+      ignore: "app_2"
+  release: melos exec --ignore="app_common" -- flutter build apk
