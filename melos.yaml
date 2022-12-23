@@ -3,8 +3,19 @@ packages:
   - packages/**
 
 scripts:
+  postbootstrap: melos run build_runner
   build_runner:
-    exec: flutter pub run build_runner build
+    exec: flutter pub run build_runner build --delete-conflicting-outputs
     select-package:
-      ignore: "app_2"
-  release: melos exec --ignore="app_common" -- flutter build apk
+      depends-on: "build_runner"
+    description: "build_runner"
+  analyze:
+    exec: flutter analyze
+  release:
+    exec: flutter build apk
+    select-package:
+      ignore: "app_common"
+  fastlane_script:
+    run: |
+      cd packages/app_1
+      fastlane hoge
